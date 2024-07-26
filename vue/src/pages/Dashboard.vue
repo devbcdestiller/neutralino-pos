@@ -3,7 +3,7 @@ import {
   Card,
   CardHeader,
   CardTitle,
-} from '@/component/ui/card';
+} from '@/components/ui/card';
 
 import { FileTextIcon } from '@radix-icons/vue';
 import { ArchiveIcon } from '@radix-icons/vue';
