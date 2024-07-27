@@ -1,5 +1,5 @@
 import './assets/index.css'
-import { createApp } from 'vue'
+import { createApp, Suspense } from 'vue'
 import App from './App.vue'
 import router from './router'
 

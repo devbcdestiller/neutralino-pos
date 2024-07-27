@@ -4,9 +4,11 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <RouterView v-slot="{ Component }">
-    <component :is="Component"/>
-  </RouterView>
+  <Suspense>
+    <RouterView v-slot="{ Component }">
+      <component :is="Component"/>
+    </RouterView>
+  </Suspense>
 </template>
 
 <style scoped>
