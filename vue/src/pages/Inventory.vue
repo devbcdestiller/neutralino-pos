@@ -22,7 +22,7 @@ const tableItems = ref();
 const itemModel = ref({
   itemName: "Sample Item",
   price: 100,
-  amount: 10
+  // amount: 10
 });
 
 
@@ -31,7 +31,7 @@ async function refreshTableItems() {
   console.log(tableItems)
 }
 
-async function deleteTableItem(id: number) {
+async function deleteTableItem(id: string) {
   await deleteItem(id);
   await refreshTableItems();
 }
@@ -45,8 +45,9 @@ async function searchInventory() {
   const query: string = search.value
   console.log(search)
   tableItems.value = await getItemsByName(query);
-  if(query.length == 0) await refreshTableItems()
+  if(query.length == 0) await refreshTableItems();
 }
+
 await refreshTableItems();
 
 </script>
@@ -62,7 +63,6 @@ await refreshTableItems();
             v-model="search"
             @keyup="searchInventory"
             />
-          <div>{{ search }}</div>
       </div>
       <ItemForm 
         :dialogTitle="`Add Item`"
@@ -72,29 +72,59 @@ await refreshTableItems();
     </div>
     <div class="flex flex-row justify-center items-center gap-10 px-16">
         <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>A list of your inventory.</TableCaption>
             <TableHeader>
-            <TableRow class="*:text-lg">
-                <TableHead class="w-[100px]">
-                Item
+            <TableRow
+              class="*:text-base *:font-bold"
+              >
+                <TableHead
+                  class="w-[50px]"
+                  >
+                  Item
                 </TableHead>
+                <TableHead>Item SKU</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead class="text-right">
-                Price (PHP)
+                <!-- <TableHead>Amount</TableHead> -->
+                <TableHead
+                  class="text-right"
+                  >
+                  Price (PHP)
                 </TableHead>
-                <TableHead class="text-center">Actions</TableHead>
+                <TableHead
+                  class="text-center"
+                  >
+                  Actions
+                </TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
-            <TableRow v-for="(tableItem, index) in tableItems" :key="tableItem.id" class="*:text-lg">
-                <TableCell class="font-medium">
-                {{ index }}
+            <TableRow
+              v-for="(tableItem, index) in tableItems"
+              :key="tableItem.id"
+              class="*:text-lg">
+              <TableCell
+                  class="text-center font-light"
+                  >
+                  {{ index + 1}}
                 </TableCell>
-                <TableCell>{{ tableItem.itemName }}</TableCell>
-                <TableCell>{{ tableItem.amount }}</TableCell>
-                <TableCell class="text-right">
-                {{ tableItem.price }}
+                <TableCell
+                  class="text-wrap font-light"
+                  >
+                  {{ tableItem.id }}
+                </TableCell>
+                <TableCell
+                  class="font-bold"
+                  >
+                  {{ tableItem.itemName }}
+                </TableCell>
+                <!-- <TableCell
+                  class="font-medium">
+                  {{ cartItem.amount }}
+                </TableCell> -->
+                <TableCell
+                  class="text-right"
+                  >
+                  {{ tableItem.price }}
                 </TableCell>
                 <TableCell class="flex flex-row justify-center content-center gap-4">
                   <!-- <ItemForm
