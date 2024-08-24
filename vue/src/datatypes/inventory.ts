@@ -16,7 +16,6 @@ export interface CartItems {
     }
 }
 
-
 export interface Transaction {
     id?: string;
     date: number;
