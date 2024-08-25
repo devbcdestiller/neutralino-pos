@@ -1,5 +1,5 @@
 1<script setup lang="ts">
-import { type Ref, ref, watch } from 'vue'
+import { type Ref, ref, toRaw, watch } from 'vue'
 
 import {
   CalendarIcon,
@@ -31,9 +31,14 @@ import {
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
+const emit = defineEmits([
+    'submit'
+]);
+
+const dateNow = new Date(Date.now());
 const value = ref({
-  start: new CalendarDate(2022, 1, 20),
-  end: new CalendarDate(2022, 1, 20).add({ days: 20 }),
+  start: new CalendarDate(dateNow.getFullYear(), dateNow.getMonth() + 1, 1),
+  end: new CalendarDate(dateNow.getFullYear(), dateNow.getMonth() + 1, dateNow.getDate()),
 }) as Ref<DateRange>
 
 const locale = ref('en-US')
@@ -93,6 +98,10 @@ watch(secondMonthPlaceholder, (_secondMonthPlaceholder) => {
   })
   if (isEqualMonth(_secondMonthPlaceholder, placeholder.value))
     placeholder.value = placeholder.value.subtract({ months: 1 })
+})
+
+watch(value, async () => {
+  emit('submit', toRaw(value.value))
 })
 </script>
 

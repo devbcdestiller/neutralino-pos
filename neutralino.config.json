@@ -27,6 +27,7 @@
       "patchFile": "/index.html",
       "devUrl": "http://localhost:3000",
       "projectPath": "/",
+      "initCommand": "npm install",
       "devCommand": "npm run dev",
       "buildCommand": "npm run build"
     }

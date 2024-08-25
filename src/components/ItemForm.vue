@@ -20,7 +20,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 
-const model = defineModel()
+const model: any = defineModel()
 defineEmits([
     'submit'
 ]);
@@ -33,7 +33,6 @@ defineProps({
         default: false
     },
     variant: {
-        type: String,
         default: "default"
     }
 })
@@ -43,7 +42,7 @@ defineProps({
 <template>
     <Dialog>
         <DialogTrigger>
-            <Button :variant="variant">{{ dialogTitle }}</Button>
+            <Button :variant="variant as any">{{ dialogTitle }}</Button>
         </DialogTrigger>
         <DialogContent class="sm:max-w-[425px]">
             <DialogHeader>
@@ -105,7 +104,7 @@ defineProps({
                 </div>
             <DialogFooter>
                 <DialogClose as-child>
-                    <Button :variant="variant" @click="$emit('submit', model)">Save changes</Button>
+                    <Button :variant="variant as any" @click="$emit('submit', model)">Save changes</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>

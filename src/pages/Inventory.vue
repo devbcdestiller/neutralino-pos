@@ -28,7 +28,6 @@ const itemModel = ref({
 
 async function refreshTableItems() {
   tableItems.value = await getAllItems();
-  console.log(tableItems)
 }
 
 async function deleteTableItem(id: string) {

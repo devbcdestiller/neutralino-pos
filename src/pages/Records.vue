@@ -10,10 +10,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import NavBar from '../components/NavBar.vue';
-import { ref, toRaw } from 'vue';
+import {
+  NavBar,
+  DateRange,
+  Transaction
+} from '@/components';
+
+import { ref } from 'vue';
 import { toReadableDate } from '@/lib/utils';
-import { getTransactions, getTransactionByID } from '@/models/transactions';
+import {
+  filterByDate,
+  getTransactions,
+  searchTransactionByID
+} from '@/models/transactions';
 
 const search = ref();
 const tableItems = ref();
@@ -23,10 +32,27 @@ async function refreshTableItems() {
 }
 
 async function searchTransaction() {
-  console.log(search.value)
   const query: string = search.value;
-  tableItems.value = await getTransactionByID(query);
+  tableItems.value = await searchTransactionByID(query);
   if(query.length == 0) await refreshTableItems();
+}
+
+async function filterTransaction(range: any) {
+  if (range.start === undefined) return
+  if (range.end === undefined) return
+  
+  const start = new Date(range.start.year,
+    range.start.month - 1,
+    range.start.day)
+      .toDateString();
+  const end = new Date(range.end.year,
+    range.end.month - 1,
+    range.end.day)
+      .toDateString();
+
+  console.log(start)
+  console.log(end)
+  tableItems.value = await filterByDate(Date.parse(start), Date.parse(end));
 }
 
 await refreshTableItems();
@@ -34,7 +60,7 @@ await refreshTableItems();
 
 <template>
     <NavBar/>
-    <div class="px-16 py-8">
+    <div class="flex flex flex-nowrap gap-4 justify-between px-16 py-8">
       <div class="relative grow *:text-xl">
           <MagnifyingGlassIcon class="absolute left-2 top-2 size-5 text-muted-foreground"/>
           <Input 
@@ -43,6 +69,11 @@ await refreshTableItems();
             v-model="search"
             @keyup="searchTransaction"
             />
+      </div>
+      <div>
+        <DateRange
+          @submit="filterTransaction"  
+        />
       </div>
     </div>
     <div class="flex flex-row justify-center items-center gap-10 px-16">
@@ -77,7 +108,9 @@ await refreshTableItems();
                   {{ toReadableDate(tableItem.date) }}
                 </TableCell>
                 <TableCell class="flex flex-row justify-center content-center gap-4">
-                  
+                  <Transaction
+                    :transaction-id="tableItem.id"
+                  />
                 </TableCell>
             </TableRow>
             </TableBody>
