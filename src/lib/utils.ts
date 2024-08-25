@@ -27,12 +27,16 @@ export function computeTransaction(cart: CartItems): number {
 
 export const randomFileName = () => self.crypto.randomUUID()
 
+export function toReadableDate(epoch: number) {
+  return new Date(epoch);
+}
+
 const db = new Dexie('posDB') as Dexie & {
   items: EntityTable<
     Item,
     'id'
   >,
-  transaction: EntityTable<
+  transactions: EntityTable<
     Transaction,
     'id'
   >
@@ -40,7 +44,7 @@ const db = new Dexie('posDB') as Dexie & {
 
 db.version(1).stores({
   items: '&id, itemName',
-  transaction: '&id, date',
+  transactions: '&id, date',
 });
 
 export type { Item, Transaction };

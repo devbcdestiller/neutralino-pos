@@ -43,7 +43,6 @@ async function addTableItem(tableItem: Item) {
 
 async function searchInventory() {
   const query: string = search.value
-  console.log(search)
   tableItems.value = await getItemsByName(query);
   if(query.length == 0) await refreshTableItems();
 }

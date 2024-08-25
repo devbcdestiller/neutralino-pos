@@ -37,19 +37,21 @@ import ItemForm from '@/components/ItemForm.vue';
 import { CartItems, Item } from '@/datatypes/inventory';
 import { computeItemPrice, computeTransaction } from '@/lib/utils';
 import { getAllItems } from '@/models/items';
+import { addTransaction } from '@/models/transactions';
+import { randomFileName } from '@/lib/utils';
 
 const cartItems: Ref<CartItems> = ref({})
 const totalPrice = ref(0);
 const inventory = ref(await getAllItems());
-const open = ref(false)
+// const open = ref(false)
 
-function showInventory() {
-  open.value = !open.value;
-}
+// function showInventory() {
+//   open.value = !open.value;
+// }
 
-function hideInventory() {
-  open.value = false;
-}
+// function hideInventory() {
+//   open.value = false;
+// }
 
 function addToCart(refItem: Item) {
   const rawItem = toRaw(refItem);
@@ -66,9 +68,16 @@ function removeFromCart(id: string) {
   delete cartItems.value[id];
 }
 
-function saveTransaction() {
-  console.log(totalPrice.value)
-  console.log(cartItems)
+async function saveTransaction() {
+  await addTransaction({
+    id: randomFileName(),
+    date: Date.now(),
+    totalPrice: totalPrice.value,
+    items: toRaw(cartItems.value)
+  });
+
+  totalPrice.value = 0;
+  cartItems.value = {};
 }
 
 </script>
@@ -109,7 +118,6 @@ function saveTransaction() {
             </PopoverContent>
         </Popover> -->
         <Command 
-          @focusin="showInventory"
           >
           <CommandInput
             class="text-xl"

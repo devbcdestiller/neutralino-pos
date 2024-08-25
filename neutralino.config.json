@@ -2,7 +2,7 @@
   "applicationId": "js.neutralino.zero",
   "version": "1.0.0",
   "defaultMode": "window",
-  "documentRoot": "/vue/dist",
+  "documentRoot": "/dist",
   "url": "/",
   "enableServer": true,
   "enableNativeAPI": true,
@@ -12,21 +12,21 @@
   "modes": {
     "window": {
       "title": "POS",
-      "width": 800,
-      "height": 500,
-      "minWidth": 400,
-      "minHeight": 200,
-      "icon": "/vue/public/vite.svg"
+      "width": 1280,
+      "height": 720,
+      "minWidth": 640,
+      "minHeight": 360,
+      "icon": "/public/vite.svg"
     }
   },
   "cli": {
     "binaryName": "neutralinojs-zero",
-    "resourcesPath": "/vue/dist",
+    "resourcesPath": "/dist",
     "binaryVersion": "5.2.0",
     "frontendLibrary": {
-      "patchFile": "/vue/index.html",
+      "patchFile": "/index.html",
       "devUrl": "http://localhost:3000",
-      "projectPath": "/vue/",
+      "projectPath": "/",
       "devCommand": "npm run dev",
       "buildCommand": "npm run build"
     }
