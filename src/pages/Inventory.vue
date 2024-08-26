@@ -10,11 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  NavBar,
+  ItemForm
+} from '@/components';
+
 import { ref, toRaw } from 'vue';
 import { Item } from '@/datatypes/inventory';
 import { getAllItems, getItemsByName, addItem, deleteItem } from '@/models/items';
-import ItemForm from '../components/ItemForm.vue';
-import NavBar from '../components/NavBar.vue';
 import { randomFileName } from '@/lib/utils';
 
 const search = ref();

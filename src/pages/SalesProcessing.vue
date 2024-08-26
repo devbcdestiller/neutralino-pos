@@ -27,13 +27,15 @@ import {
 import {
   Button
 } from '@/components/ui/button'
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from '@/components/ui/popover'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import NavBar from '@/components/NavBar.vue';
-import ItemForm from '@/components/ItemForm.vue';
+  NavBar,
+  ItemForm
+} from '@/components';
 import { CartItems, Item } from '@/datatypes/inventory';
 import { computeItemPrice, computeTransaction } from '@/lib/utils';
 import { getAllItems } from '@/models/items';
